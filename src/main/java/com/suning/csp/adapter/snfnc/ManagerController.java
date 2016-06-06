@@ -22,7 +22,6 @@ public class ManagerController {
 
     @RequestMapping("/start")
     public String start() {
-        System.out.println("1111111111111111");
         WebApplicationContext context = ContextLoader.getCurrentWebApplicationContext();
         Map<String, Processable> mapProcessor = context.getBeansOfType(Processable.class);
         for (String key : mapProcessor.keySet()) {
