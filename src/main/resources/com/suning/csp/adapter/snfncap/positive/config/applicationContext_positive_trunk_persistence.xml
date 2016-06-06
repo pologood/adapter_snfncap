@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+	
+	<!-- 框架中正向持久化 -->
+    <bean id="snfncapPositivePersistence" class="com.gs.csp.plugins.persistence.general.GeneralAdapterPositivePersistence">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+        <property name="idGenerator">
+            <bean class="com.gs.utility.generator.UuidGenerator"/>
+        </property>
+    </bean>
+	
+	<!-- 正向持久化 -->
+	<bean id="positivePersistence" class="com.suning.csp.adapter.snfnc.positive.persistence.SnfncPositivePersistence">
+		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+	</bean>
+
+</beans>

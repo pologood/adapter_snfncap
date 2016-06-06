@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:config.properties</value>
+                <value>classpath:conf/snfncap.properties</value>
+            </list>
+        </property>
+    </bean>
+    
+    <!-- 正向IP校验类 -->
+    <bean id="positiveIpValidator" class="com.gs.utility.validator.IpValidator">
+    	<property name="whiteIps" value="#{configBean.configMap[positive_white_ips]}"/>
+    	<property name="blackIps" value="#{configBean.configMap[positive_black_ips]}"/>
+    </bean>
+
+<!--    <bean id="positiveRequestClientDirectory" class="java.io.File">
+        <constructor-arg index="0" value="${positive.client.request.file.directory}"/>
+    </bean>
+
+    <bean id="positiveResponseClientDirectory" class="java.io.File">
+        <constructor-arg index="0" value="${positive.client.response.file.directory}"/>
+    </bean>-->
+
+    <bean id="positiveRequestHostDirectory" class="java.io.File">
+        <constructor-arg index="0" value="#{configBean.configMap[positive_host_request_file_directory]}"/>
+    </bean>
+
+    <bean id="positiveResponseHostDirectory" class="java.io.File">
+        <constructor-arg index="0" value="#{configBean.configMap[positive_host_response_file_directory]}"/>
+    </bean>
+
+    <!-- 正向主干接收调度器 异常代理-->
+    <bean id="snfncapPositiveTrunkAcceptDispatcherExceptionProxy"
+          class="com.suning.csp.adapter.snfnc.positive.dispatcher.proxy.SnfncPositiveTrunkAcceptDispatcherExceptionProxy">
+        <property name="target" >
+        	<ref bean="snfncapPositiveTrunkAcceptDispatcher"/>
+        </property>
+        <property name="persistence" ref="snfncapPositivePersistence"/>
+        <property name="defaultExecutor" ref="snfncapPositiveTrunkDefaultExecutor"/>
+    </bean>
+    
+    <!-- 正向主干接收调度器 -->
+    <bean id="snfncapPositiveTrunkAcceptDispatcher" class="com.gs.csp.plugins.dispatcher.general.GeneralAcceptDispatcher">
+    	<property name="code" value="trunk accept dispatcher"/>
+        <property name="inputMessageInterceptorList">
+        	<list>
+            	<ref bean="snfncapPositiveSupplySystemCodeInterceptor"/>
+            	<ref bean="snfncapPositiveTrunkSerialNumberValidateInterceptor"/>
+            </list>
+        </property>
+        <property name="outputMessageInterceptorList">
+             <list>
+             	 <ref bean="snfncapPositiveSupplyMessageInterceptor"/>
+             	 <ref bean="snfncapPositiveSupplyResultTextInterceptor"/>
+             </list>
+        </property>
+    </bean>
+
+    <!-- 正向主干发送调度器 -->
+    <bean id="snfncapPositiveTrunkSendDispatcher"
+          class="com.suning.csp.adapter.snfnc.positive.dispatcher.SnfncPositiveTrunkSendDispatcher">
+        <property name="code" value="trunk send dispatcher"/>
+    </bean>
+
+    <!-- 正向主干processor -->
+    <bean id="snfncapPositiveTrunkProcessor" class="com.gs.csp.plugins.processor.general.GeneralProcessor">
+        <property name="code" value="positive trunk processor"/>
+        <property name="acceptConnectorList">
+            <list>
+                <ref bean="snfncapPositiveTrunkFileAcceptConnector"/>
+                <ref bean="snfncapPositiveTrunkMqAcceptConnector"/>
+                <ref bean="snfncapPositiveTrunkHessianAcceptConnector"/>
+            </list>
+        </property>
+        <property name="acceptDispatcher" ref="snfncapPositiveTrunkAcceptDispatcherExceptionProxy"/>
+        <property name="executorList">
+            <list>
+                <ref bean="snfncapPositiveTrunk0001Executor"/>
+                <ref bean="snfncapPositiveTrunk0002Executor"/>
+                <ref bean="snfncapPositiveTrunk0003Executor"/>
+                <ref bean="snfncapPositiveTrunk0004Executor"/>
+                <ref bean="snfncapPositiveTrunk0005Executor"/>
+                <ref bean="snfncapPositiveTrunk0006Executor"/>
+                <ref bean="snfncapPositiveTrunk0007Executor"/>
+                <ref bean="snfncapPositiveTrunk0008Executor"/>
+                <ref bean="snfncapPositiveTrunk0009Executor"/>
+                <ref bean="snfncapPositiveTrunk0010Executor"/>
+                <ref bean="snfncapPositiveTrunk0011Executor"/>
+                <ref bean="snfncapPositiveTrunk0013Executor"/>
+                <ref bean="snfncapPositiveTrunk0014Executor"/>
+                <ref bean="snfncapPositiveTrunk0016Executor"/>
+                <ref bean="snfncapPositiveTrunk0017Executor"/>
+                <ref bean="snfncapPositiveTrunk0018Executor"/>
+                <ref bean="snfncapPositiveTrunk0019Executor"/>
+                <ref bean="snfncapPositiveTrunk0020Executor"/>
+                <ref bean="snfncapPositiveTrunk0021Executor"/>
+                <ref bean="snfncapPositiveTrunk0022Executor"/>
+                <ref bean="snfncapPositiveTrunk0023Executor"/>
+                <ref bean="snfncapPositiveTrunk0040Executor"/>
+                <ref bean="snfncapPositiveTrunk0041Executor"/>
+                <ref bean="snfncapPositiveTrunk0050Executor"/>
+                <ref bean="snfncapPositiveTrunk0051Executor"/>
+                <ref bean="snfncapPositiveTrunk0052Executor"/>
+                <ref bean="snfncapPositiveTrunk0053Executor"/>
+                <ref bean="snfncapPositiveTrunk0054Executor"/>
+                <ref bean="snfncapPositiveTrunk0055Executor"/>
+                <ref bean="snfncapPositiveTrunk0056Executor"/>
+                <ref bean="snfncapPositiveTrunk0057Executor"/>
+                <ref bean="snfncapPositiveTrunk0058Executor"/>
+                <ref bean="snfncapPositiveTrunk0059Executor"/>
+                <ref bean="snfncapPositiveTrunk0060Executor"/>
+                <ref bean="snfncapPositiveTrunk0061Executor"/>
+				<ref bean="snfncapPositiveTrunk0062Executor"/>
+				<ref bean="snfncapPositiveTrunk0063Executor"/>
+				<ref bean="snfncapPositiveTrunk0064Executor"/>
+				<ref bean="snfncapPositiveTrunk0065Executor"/>
+				<ref bean="snfncapPositiveTrunk0066Executor"/>
+				<ref bean="snfncapPositiveTrunk0067Executor"/>
+				<ref bean="snfncapPositiveTrunk0068Executor"/>
+				<ref bean="snfncapPositiveTrunk0069Executor"/>
+				<ref bean="snfncapPositiveTrunk0075Executor"/>
+				<ref bean="snfncapPositiveTrunk0076Executor"/>
+				<ref bean="snfncapPositiveTrunk0077Executor"/>
+				<ref bean="snfncapPositiveTrunk0078Executor"/>
+				<ref bean="snfncapPositiveTrunk0079Executor"/>
+				<ref bean="snfncapPositiveTrunk0080Executor"/>
+				<ref bean="snfncapPositiveTrunk0081Executor"/>
+				<ref bean="snfncapPositiveTrunk0082Executor"/>
+                <ref bean="snfncapPositiveTrunkDefaultExecutor"/>
+                <ref bean="snfncapPositiveTrunk0073Executor"/>
+                <ref bean="snfncapPositiveTrunk0074Executor"/>
+            </list>
+        </property>
+        <property name="sendDispatcher" ref="snfncapPositiveTrunkSendDispatcher"/>
+        <property name="sendConnectorList">
+            <list>
+                <ref bean="snfncapPositiveTrunkMqSendConnector"/>
+                <ref bean="snfncapPositiveTrunkSocketSendConnector"/>
+            </list>
+        </property>
+    </bean>
+            <bean id="concurrentMap" class="java.util.concurrent.ConcurrentHashMap"/>
+
+</beans>

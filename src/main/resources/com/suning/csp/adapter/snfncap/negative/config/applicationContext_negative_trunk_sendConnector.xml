@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+    <!-- 反向主干发送抽象类 -->
+    <bean id="snfncapNegativeTrunkAbstractSendConnector" class="com.gs.csp.framework.connector.AbstractSendConnector" abstract="true">
+        <property name="cryptography" ref="snfncapCryptography"/>
+        <property name="outputMessageInterceptorList">
+            <list>
+                <ref bean="snfncapNegativeSaveSendOutputMessageInterceptor"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 反向主干MQ发送类 -->
+    <bean id="snfncapNegativeTrunkMqSendConnector"
+          class="com.suning.csp.adapter.snfnc.negative.connector.mq.SnfncNegativeTrunkMqSendConnector"
+          parent="snfncapNegativeTrunkAbstractSendConnector">
+        <property name="code" value="${client.snfncap}"/>
+        <property name="jmsTemplate" ref="jmsTemplate"/>
+        <property name="queue" ref="snfncapNegativeTrunkSendQueue"/>
+        <property name="fileSendConnector">
+            <bean class="com.gs.csp.plugins.connector.socket.FileSendConnector">
+                <property name="ip" value="#{configBean.configMap[negative_client_request_file_send_ip]}"/>
+                <property name="port" value="#{configBean.configMap[negative_client_request_file_send_port]}"/>
+                <property name="cryptography" ref="snfncapCryptography"/>
+                <property name="directory" value="#{configBean.configMap[negative_host_request_file_directory]}"/>
+            </bean>
+        </property>
+    </bean>
+
+    <!-- 反向http发送类 -->
+    <!-- <bean id="snfncapNegativeTrunkHttpSendConnector" class="com.suning.csp.adapter.snfnc.negative.connector.http.SnfncNegativeTrunkHttpSendConnector"
+          parent="snfncapNegativeTrunkAbstractSendConnector">
+        <property name="code" value="${client.snfncap}"/>
+        <property name="httpSendConnector">
+        	<bean class="com.gs.utility.net.HttpSendConnector">
+        		<property name="url" value="${negative.client.request.http.url}"/>
+        	</bean>
+        </property>
+        <property name="inputMessageInterceptorList">
+            <list>
+            	<ref bean="snfncapNegativeSupplyMessageInterceptor"/>
+                <ref bean="snfncapNegativeSaveSendInputMessageInterceptor"/>
+            </list>
+        </property>
+    </bean> -->
+</beans>

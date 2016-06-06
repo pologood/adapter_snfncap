@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+	
+	<!-- 反向分支处理器抽象类 -->
+	<bean id="snfncapNegativeBranchAbstractExecutor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor" abstract="true">
+        <property name="version" value="1.0"/>
+    </bean>
+    
+    <!--  主动推送0026Executor-->
+    <bean id="snfncapNegativeBranch0026Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="snfncapNegativeBranchAbstractExecutor">
+        <property name="code" value="${business.0026}"/>
+        <property name="trunkExecutor" ref="snfncapNegativeTrunk0026Executor"/>
+    </bean>
+    
+        <!--  主动推送0070Executor-->
+    <bean id="snfncapNegativeBranch0070Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="snfncapNegativeBranchAbstractExecutor">
+        <property name="code" value="${business.0070}"/>
+        <property name="trunkExecutor" ref="snfncapNegativeTrunk0070Executor"/>
+    </bean>
+    
+        <!--  主动推送0071Executor-->
+    <bean id="snfncapNegativeBranch0071Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="snfncapNegativeBranchAbstractExecutor">
+        <property name="code" value="${business.0071}"/>
+        <property name="trunkExecutor" ref="snfncapNegativeTrunk0071Executor"/>
+    </bean>
+    
+    <!--  主动推送0072Executor-->
+    <bean id="snfncapNegativeBranch0072Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="snfncapNegativeBranchAbstractExecutor">
+        <property name="code" value="${business.0072}"/>
+        <property name="trunkExecutor" ref="snfncapNegativeTrunk0072Executor"/>
+    </bean>
+</beans>

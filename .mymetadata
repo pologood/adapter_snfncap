@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="adapter_snfncap"
+  id="myeclipse.1428055316529"
+  context-root="/adapter_snfncap"
+  j2ee-spec="1.4"
+  archive="adapter_snfncap.war">
+  <attributes>
+    <attribute name="webrootdir" value="/src/main/webapp" />
+  </attributes>
+</project-module>
+

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+    <!-- 反向分支接收调度器 -->
+    <bean id="snfncapNegativeBranchAcceptDispatcher"
+          class="com.gs.csp.plugins.dispatcher.proxy.exception.ExceptionBranchAcceptDispatcherProxy">
+        <property name="target">
+            <bean class="com.gs.csp.plugins.dispatcher.general.GeneralBranchAcceptDispatcher">
+                <property name="trunkSendDispatcher" ref="snfncapNegativeTrunkSendDispatcher"/>
+            </bean>
+        </property>
+        <property name="persistence" ref="snfncapNegativePersistence"/>
+    </bean>
+
+    <!-- 反向分支发送调度器 -->
+    <bean id="snfncapNegativeBranchSendDispatcher" class="com.suning.csp.adapter.snfnc.negative.dispatcher.SnfncNegativeBranchSendDispatcher">
+        <property name="trunkAcceptDispatcher" ref="snfncapNegativeTrunkAcceptDispatcher"/>
+    </bean>
+
+    <!-- 反向分支Processor -->
+    <bean id="snfncapNegativeBranchProcessor" class="com.gs.csp.plugins.processor.general.GeneralProcessor">
+        <property name="acceptConnectorList">
+            <list>
+                <ref bean="snfncapNegativeBranchMqAcceptConnector"/>
+            </list>
+        </property>
+        <property name="acceptDispatcher" ref="snfncapNegativeBranchAcceptDispatcher"/>
+        <property name="executorList">
+            <list>
+                <ref bean="snfncapNegativeBranch0026Executor"/>
+                <ref bean="snfncapNegativeBranch0070Executor"/>
+                <ref bean="snfncapNegativeBranch0071Executor"/>
+                <ref bean="snfncapNegativeBranch0072Executor"/>
+            </list>
+        </property>
+        <property name="sendDispatcher" ref="snfncapNegativeBranchSendDispatcher"/>
+        <property name="sendConnectorList">
+            <list>
+                <ref bean="snfncapNegativeBranchMqSendConnector"/>
+            </list>
+        </property>
+    </bean>
+</beans>

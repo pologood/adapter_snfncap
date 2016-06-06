@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+ xmlns:context="http://www.springframework.org/schema/context"
+ xsi:schemaLocation="
+   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+    <bean name="/hessian" class="com.gs.utility.net.HessianServiceExporter">
+		<property name="service" ref="snfncapPositiveTrunkHessianAcceptConnector" />
+		<property name="serviceInterface"
+			value="com.suning.csp.adapter.snfnc.positive.connector.hessian.SnfncPositiveTrunkHessianAcceptConnectable" />
+		<property name="ipValidator" ref="positiveIpValidator"/>
+	</bean>
+	
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<context:component-scan base-package="com.suning.csp.adapter.snfnc" />
+</beans>

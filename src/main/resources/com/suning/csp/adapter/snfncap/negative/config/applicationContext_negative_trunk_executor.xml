@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+    <bean id="snfncapNegativeTrunkAbstractExecutor" class="com.gs.csp.framework.executor.AbstractSingleExecutor" abstract="true">
+        <property name="version" value="1.0"/>
+        <property name="acceptOutputMessageInterceptorList">
+        	<list>
+        		<ref bean="snfncapNegativeSupplyHostMessageInterceptor"/>
+        		<ref bean="negativeSupplyHostResponseMessageInterceptor"/>
+        	</list>
+        </property>
+    </bean>
+
+    <!-- 付款查询主动推送 -->
+    <bean id="snfncapNegativeTrunk0026Executor" class="com.suning.csp.adapter.snfnc.negative.executor.SnfncNegativeTrunkExecutor"
+          parent="snfncapNegativeTrunkAbstractExecutor">
+        <property name="code" value="${business.0026}"/>
+        <!--<property name="requestClientDirectory" ref="negativeRequestClientDirectory"/>-->
+        <property name="requestHostDirectory" ref="negativeRequestHostDirectory"/>
+        <!--<property name="responseClientDirectory" ref="negativeResponseClientDirectory"/>-->
+        <property name="responseHostDirectory" ref="negativeResponseHostDirectory"/>
+        <property name="acceptInputMessageInterceptorList">
+        	<list>
+        		<ref bean="snfncapNegativeSupplyPushPayResultRequestMessageInterceptor"/>
+        	</list>
+        </property>
+    </bean>
+    
+    <bean id="snfncapNegativeTrunk0070Executor" class="com.suning.csp.adapter.snfnc.negative.executor.SnfncNegativeTrunkExecutor"
+          parent="snfncapNegativeTrunkAbstractExecutor">
+        <property name="code" value="${business.0070}"/>
+        <!--<property name="requestClientDirectory" ref="negativeRequestClientDirectory"/>-->
+        <property name="requestHostDirectory" ref="negativeRequestHostDirectory"/>
+        <!--<property name="responseClientDirectory" ref="negativeResponseClientDirectory"/>-->
+        <property name="responseHostDirectory" ref="negativeResponseHostDirectory"/>
+        <property name="acceptInputMessageInterceptorList">
+        	<list>
+        		<ref bean="snfncapNegativeSupplyPushPayResultRequestMessageInterceptor"/>
+        	</list>
+        </property>
+    </bean>
+    
+    <bean id="snfncapNegativeTrunk0071Executor" class="com.suning.csp.adapter.snfnc.negative.executor.SnfncNegativeTrunkExecutor"
+          parent="snfncapNegativeTrunkAbstractExecutor">
+        <property name="code" value="${business.0071}"/>
+        <!--<property name="requestClientDirectory" ref="negativeRequestClientDirectory"/>-->
+        <property name="requestHostDirectory" ref="negativeRequestHostDirectory"/>
+        <!--<property name="responseClientDirectory" ref="negativeResponseClientDirectory"/>-->
+        <property name="responseHostDirectory" ref="negativeResponseHostDirectory"/>
+        <property name="acceptInputMessageInterceptorList">
+        	<list>
+        		<ref bean="snfncapNegativeSupplyPushPayResultRequestMessageInterceptor"/>
+        	</list>
+        </property>
+    </bean>
+    
+    <bean id="snfncapNegativeTrunk0072Executor" class="com.suning.csp.adapter.snfnc.negative.executor.SnfncNegativeTrunkExecutor"
+          parent="snfncapNegativeTrunkAbstractExecutor">
+        <property name="code" value="${business.0072}"/>
+        <!--<property name="requestClientDirectory" ref="negativeRequestClientDirectory"/>-->
+        <property name="requestHostDirectory" ref="negativeRequestHostDirectory"/>
+        <!--<property name="responseClientDirectory" ref="negativeResponseClientDirectory"/>-->
+        <property name="responseHostDirectory" ref="negativeResponseHostDirectory"/>
+        <property name="acceptInputMessageInterceptorList">
+        	<list>
+        		<ref bean="snfncap0072NegativeSupplyPushPayResultRequestMessageInterceptor"/>
+        	</list>
+        </property>
+    </bean>
+</beans>

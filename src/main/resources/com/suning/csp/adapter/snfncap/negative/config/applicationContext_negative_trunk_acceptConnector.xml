@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+    <!-- 反向主干接收器抽象类 -->
+    <bean id="snfnacpNegativeTrunkAbstractAcceptConnector" class="com.gs.csp.framework.connector.AbstractAcceptConnector" abstract="true">
+        <property name="cryptography" ref="cryptography"/>
+        <property name="inputMessageInterceptorList">
+            <list>
+                <bean class="com.gs.csp.plugins.interceptor.monitor.MonitorAcceptInputMessageInterceptor">
+                    <property name="map" ref="concurrentMap"/>
+                </bean>
+                <ref bean="snfncapNegativeSaveAcceptInputMessageInterceptor"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 反向主干MQ接收器 -->
+    <bean id="snfncapNegativeTrunkMQAcceptConnector" class="com.gs.csp.plugins.connector.mq.MqAcceptConnector"
+          parent="snfnacpNegativeTrunkAbstractAcceptConnector">
+        <property name="listenerContainer" ref="snfncapNegativeTrunkListenerContainer"/>
+        <property name="sendConnector" ref="snfncapNegativeBranchMqSendConnector" />
+    </bean>
+
+    <!-- 反向主干socket接收器 -->
+    <bean id="snfncapNegativeTrunkSocketAcceptConnector" class="com.gs.csp.plugins.connector.socket.MessageAcceptConnector"
+          parent="snfnacpNegativeTrunkAbstractAcceptConnector">
+        <property name="port" value="#{configBean.configMap[negative_host_request_socket_accept_port]}"/>
+        <property name="ipValidator" ref="negativeIpValidator"/>
+        <property name="outputMessageInterceptorList">
+            <list>
+                <ref bean="snfncapNegativeSaveAcceptOutputMessageInterceptor"/>
+            </list>
+        </property>
+    </bean>
+    
+</beans>

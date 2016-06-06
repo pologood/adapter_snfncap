@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+    <!-- 接收请求拦截器 -->
+    <bean id="snfncapNegativeSaveAcceptInputMessageInterceptor"
+          class="com.gs.csp.plugins.interceptor.save.SaveAcceptInputMessageInterceptor">
+        <property name="persistence" ref="snfncapNegativePersistence"/>
+    </bean>
+    
+    <!-- 请求发送拦截器 -->
+    <bean id="snfncapNegativeSaveSendOutputMessageInterceptor"
+          class="com.gs.csp.plugins.interceptor.save.SaveSendOutputMessageInterceptor">
+        <property name="persistence" ref="snfncapNegativePersistence"/>
+    </bean>
+    
+    <!-- 0026消息转换拦截器 -->
+    <bean id="snfncapNegativeSupplyPushPayResultRequestMessageInterceptor" class="com.suning.csp.adapter.snfnc.negative.interceptor.supply.SnfncNegativeSupplyPushPayResultRequestMessageInterceptor">
+		<property name="snfncNegativePersistence" ref="negativePersistence"/>    
+    </bean>
+    
+    <!-- 0072消息转换拦截器 -->
+    <bean id="snfncap0072NegativeSupplyPushPayResultRequestMessageInterceptor" class="com.suning.csp.adapter.snfnc.negative.interceptor.supply.Snfnc0072NegativeSupplyPushPayResultRequestMessageInterceptor">
+    </bean>
+    
+    <!-- 补充反向响应消息拦截器 -->
+    <bean id="snfncapNegativeSupplyMessageInterceptor" class="com.suning.csp.adapter.snfnc.negative.interceptor.supply.SnfncNegativeSupplyMessageInterceptor">
+    	<property name="snfncNegativePersistence" ref="negativePersistence" />
+    </bean>
+    
+    <!-- 响应接收拦截器 -->
+    <bean id="snfncapNegativeSaveSendInputMessageInterceptor"
+          class="com.gs.csp.plugins.interceptor.save.SaveSendInputMessageInterceptor">
+        <property name="persistence" ref="snfncapNegativePersistence"/>
+    </bean>
+
+    <!-- 框架补充反向内部消息拦截器 -->
+    <bean id="snfncapNegativeSupplyHostMessageInterceptor" class="com.gs.csp.plugins.interceptor.supply.SupplyMessageInterceptor">
+        <property name="persistence" ref="snfncapNegativePersistence"/>
+    </bean>
+    
+    <!-- 补充反向内部属性 -->
+    <bean id="negativeSupplyHostResponseMessageInterceptor" class="com.suning.csp.adapter.snfnc.negative.interceptor.supply.SnfncNegativeSupplyHostResponseMessageInterceptor">
+    	<property name="snfncNegativePersistence" ref="negativePersistence"/>
+    </bean>
+
+    <!-- 发送响应拦截器 -->
+    <bean id="snfncapNegativeSaveAcceptOutputMessageInterceptor"
+          class="com.gs.csp.plugins.interceptor.save.SaveAcceptOutputMessageInterceptor">
+        <property name="persistence" ref="snfncapNegativePersistence"/>
+    </bean>
+    
+</beans>

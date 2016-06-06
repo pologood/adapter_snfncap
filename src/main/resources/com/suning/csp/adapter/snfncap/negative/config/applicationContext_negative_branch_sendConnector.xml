@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+    <!-- 反向分支MQ支发送器 -->
+    <bean id="snfncapNegativeBranchMqSendConnector" class="com.gs.csp.plugins.connector.mq.MqSendConnector">
+        <property name="code" value="${client.snfncap}"/>
+        <property name="jmsTemplate" ref="jmsTemplate"/>
+        <property name="queue" ref="snfncapNegativeBranchSendQueue"/>
+        <property name="cryptography" ref="cryptography"/>
+        <property name="outputMessageInterceptorList">
+        	<list>
+        		<ref bean="snfncapNegativeSaveAcceptOutputMessageInterceptor"/>
+                <bean class="com.gs.csp.plugins.interceptor.monitor.MonitorSendOutputMessageInterceptor">
+                    <property name="map" ref="concurrentMap"/>
+                </bean>
+        	</list>  
+        </property>
+    </bean>
+
+</beans>

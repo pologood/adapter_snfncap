@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+	
+	<!-- 正向主干接收器抽象类 -->
+    <bean id="snfncapPositiveTrunkAcceptConnector" class="com.gs.csp.framework.connector.AbstractAcceptConnector" abstract="true">
+        <property name="cryptography" ref="snfncapCryptography"/>
+        <property name="inputMessageInterceptorList">
+            <list>
+                <ref bean="snfncapPositiveInitializeInterceptor"/>
+                <bean class="com.gs.csp.plugins.interceptor.monitor.MonitorAcceptInputMessageInterceptor">
+                    <property name="map" ref="concurrentMap"/>
+                </bean>
+                <ref bean="snfncapPositiveSaveAcceptInputMessageInterceptor"/>
+                <ref bean="snfncapPositiveSavePayMessageInterceptor"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 正向主干MQ接收器 -->
+    <bean id="snfncapPositiveTrunkMqAcceptConnector" class="com.suning.csp.adapter.snfnc.positive.connector.mq.SnfncPositiveTrunkMqAcceptConnector"
+          parent="snfncapPositiveTrunkAcceptConnector">
+        <property name="code" value="trunk mq accept connector"/>
+        <property name="listenerContainer" ref="snfncapPositiveTrunkListenerContainer"/>
+        <property name="sendConnector" ref="snfncapPositiveBranchSendConnector"/>
+        <property name="snfncPositivePersistence" ref="positivePersistence"/>
+    </bean>
+
+    <!-- 正向主干文件接收器 -->
+    <bean id="snfncapPositiveTrunkFileAcceptConnector" class="com.gs.csp.plugins.connector.socket.FileAcceptConnector">
+        <property name="code" value="trunk file accept connector"/>
+        <property name="port" value="#{configBean.configMap[positive_client_request_file_accept_port]}"/>
+        <property name="directory" value="#{configBean.configMap[positive_host_request_file_directory]}"/>
+        <property name="ipValidator" ref="positiveIpValidator"/>
+    </bean>
+
+    <!-- 正向主干hessian接收器 -->
+    <bean id="snfncapPositiveTrunkHessianAcceptConnector" class="com.suning.csp.adapter.snfnc.positive.connector.hessian.SnfncPositiveTrunkHessianAcceptConnector"
+          parent="snfncapPositiveTrunkAcceptConnector">
+          <property name="code" value="trunk hessian accept connector" />
+        <property name="outputMessageInterceptorList">
+            <list>
+                <ref bean="snfncapPositiveSaveAcceptOutputMessageInterceptor"/>
+                <ref bean="snfncapPositiveCompleteInterceptor"/>
+            </list>
+        </property>
+    </bean>
+</beans>

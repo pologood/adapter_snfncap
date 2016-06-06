@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4"
+         xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+    <context-param>
+		<param-name>jndi</param-name>
+		<param-value>jdbc/dcsp</param-value>
+	</context-param>
+	
+	<listener>
+		<listener-class>com.suning.dcsp.listener.BaseListener</listener-class>
+	</listener>
+	
+    <context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+		classpath:applicationContext_mq.xml,
+		classpath:applicationContext_dataSource.xml,
+		classpath:applicationContext_security.xml,
+		classpath:/com/suning/csp/adapter/snfncap/positive/config/applicationContext_config.xml,
+		classpath:/com/suning/csp/adapter/snfncap/positive/config/applicationContext_positive_trunk_acceptConnector.xml,
+		classpath:/com/suning/csp/adapter/snfncap/positive/config/applicationContext_positive_trunk_executor.xml,
+		classpath:/com/suning/csp/adapter/snfncap/positive/config/applicationContext_positive_trunk_interceptor.xml,
+		classpath:/com/suning/csp/adapter/snfncap/positive/config/applicationContext_positive_trunk_mq.xml,
+		classpath:/com/suning/csp/adapter/snfncap/positive/config/applicationContext_positive_trunk_persistence.xml,
+		classpath:/com/suning/csp/adapter/snfncap/positive/config/applicationContext_positive_trunk_security.xml,
+		classpath:/com/suning/csp/adapter/snfncap/positive/config/applicationContext_positive_trunk_sendConnector.xml,
+		classpath:/com/suning/csp/adapter/snfncap/positive/config/applicationContext_positive_trunk.xml,
+		classpath:/com/suning/csp/adapter/snfncap/positive/config/applicationContext_positive_branch.xml,
+		classpath:/com/suning/csp/adapter/snfncap/positive/config/applicationContext_positive_branch_sendConnector.xml,
+		classpath:/com/suning/csp/adapter/snfncap/positive/config/applicationContext_positive_branch_mq.xml,
+		classpath:/com/suning/csp/adapter/snfncap/positive/config/applicationContext_positive_branch_acceptConnector.xml,
+		classpath:/com/suning/csp/adapter/snfncap/positive/config/applicationContext_positive_branch_executor.xml,
+		classpath:/com/suning/csp/adapter/snfncap/negative/config/applicationContext_negative_trunk.xml,
+		classpath:/com/suning/csp/adapter/snfncap/negative/config/applicationContext_negative_trunk_sendConnector.xml,
+		classpath:/com/suning/csp/adapter/snfncap/negative/config/applicationContext_negative_trunk_persistence.xml,
+		classpath:/com/suning/csp/adapter/snfncap/negative/config/applicationContext_negative_trunk_mq.xml,
+		classpath:/com/suning/csp/adapter/snfncap/negative/config/applicationContext_negative_trunk_interceptor.xml,
+		classpath:/com/suning/csp/adapter/snfncap/negative/config/applicationContext_negative_trunk_executor.xml,
+		classpath:/com/suning/csp/adapter/snfncap/negative/config/applicationContext_negative_trunk_acceptConnector.xml,
+		classpath:/com/suning/csp/adapter/snfncap/negative/config/applicationContext_negative_branch.xml,
+		classpath:/com/suning/csp/adapter/snfncap/negative/config/applicationContext_negative_branch_sendConnector.xml,
+		classpath:/com/suning/csp/adapter/snfncap/negative/config/applicationContext_negative_branch_mq.xml,
+		classpath:/com/suning/csp/adapter/snfncap/negative/config/applicationContext_negative_branch_executor.xml,
+		classpath:/com/suning/csp/adapter/snfncap/negative/config/applicationContext_negative_branch_acceptConnector.xml,
+		</param-value>
+	</context-param>
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <servlet>
+        <servlet-name>snfncap</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:conf/springmvc/applicationContext_servlet.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>snfncap</servlet-name>
+        <url-pattern>/snfncap/*</url-pattern>
+    </servlet-mapping>
+
+</web-app>

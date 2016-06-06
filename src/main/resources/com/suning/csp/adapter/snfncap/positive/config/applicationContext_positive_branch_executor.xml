@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+    <bean id="ver1_0BranchExecutor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor" abstract="true">
+        <property name="version" value="1.0"/>
+    </bean>
+    
+    <!-- 查询余额 -->
+    <bean id="snfncapPositiveBranch0001Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0001}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0001Executor"/>
+    </bean>
+
+    <!-- 明细查询 -->
+    <bean id="snfncapPositiveBranch0002Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0002}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0002Executor"/>
+    </bean>
+
+    <!-- 单笔对公付款 -->
+    <bean id="snfncapPositiveBranch0003Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0003}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0003Executor"/>
+    </bean>
+
+    <!-- 单笔付款结果查询 -->
+    <bean id="snfncapPositiveBranch0004Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0004}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0004Executor"/>
+    </bean>
+
+    <!-- 批量对私付款 -->
+    <bean id="snfncapPositiveBranch0005Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0005}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0005Executor"/>
+    </bean>
+
+    <!-- 批量付款结果查询 -->
+    <bean id="snfncapPositiveBranch0006Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0006}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0006Executor"/>
+    </bean>
+
+    <!-- 超级网银付款 -->
+    <bean id="snfncapPositiveBranch0007Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0007}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0007Executor"/>
+    </bean>
+    
+    <!-- 超级网银付款 -->
+    <bean id="snfncapPositiveBranch0008Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0008}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0008Executor"/>
+    </bean>
+
+    <!-- 联行号查询 -->
+    <bean id="snfncapPositiveBranch0009Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0009}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0009Executor"/>
+    </bean>
+
+    <!-- 清算行号查询 -->
+    <bean id="snfncapPositiveBranch0010Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0010}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0010Executor"/>
+    </bean>
+
+    <!-- 周期额度维护 -->
+    <bean id="snfncapPositiveBranch0011Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0011}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0011Executor"/>
+    </bean>
+
+    <!-- 请款限额查询 -->
+    <bean id="snfncapPositiveBranch0013Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0013}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0013Executor"/>
+    </bean>
+
+    <!-- 日间透支填平查询-->
+    <bean id="snfncapPositiveBranch0014Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0014}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0014Executor"/>
+    </bean>
+
+    <!-- 定期开立 -->
+    <bean id="snfncapPositiveBranch0016Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0016}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0016Executor"/>
+    </bean>
+
+    <!-- 定期支取-->
+    <bean id="snfncapPositiveBranch0017Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0017}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0017Executor"/>
+    </bean>
+
+    <!-- 通知开立 -->
+    <bean id="snfncapPositiveBranch0018Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0018}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0018Executor"/>
+    </bean>
+
+    <!-- 通知设定 -->
+    <bean id="snfncapPositiveBranch0019Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0019}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0019Executor"/>
+    </bean>
+
+    <!-- 通知取消 -->
+    <bean id="snfncapPositiveBranch0020Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0020}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0020Executor"/>
+    </bean>
+
+    <!-- 通知支取 -->
+    <bean id="snfncapPositiveBranch0021Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0021}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0021Executor"/>
+    </bean>
+
+    <!-- 定期账户查询 -->
+    <bean id="snfncapPositiveBranch0022Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0022}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0022Executor"/>
+    </bean>
+
+	<!-- 代付 -->
+    <bean id="snfncapPositiveBranch0040Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="0040"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0040Executor"/>
+    </bean>
+	
+	<!-- 代付查询 -->
+    <bean id="snfncapPositiveBranch0041Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="0041"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0041Executor"/>
+    </bean>
+    
+    <!-- 多币种查询余额 -->
+    <bean id="snfncapPositiveBranch0051Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0051}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0051Executor"/>
+    </bean>
+
+    <!-- 明细查询 -->
+    <bean id="snfncapPositiveBranch0052Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0052}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0052Executor"/>
+    </bean>
+
+    <!-- 虚账户开立 -->
+    <bean id="snfncapPositiveBranch0053Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0053}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0053Executor"/>
+    </bean>
+
+    <!-- 虚账户开立查询 -->
+    <bean id="snfncapPositiveBranch0054Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0054}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0054Executor"/>
+    </bean>
+
+     <!-- 明细查询 -->
+    <bean id="snfncapPositiveBranch0055Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0055}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0055Executor"/>
+    </bean>
+    <!-- 跨境0056-0061 -->
+    <!-- 汇率查询 -->
+    <bean id="snfncapPositiveBranch0056Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0056}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0056Executor"/>
+    </bean>
+    
+    <!-- 购结汇申请 -->
+    <bean id="snfncapPositiveBranch0057Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0057}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0057Executor"/>
+    </bean>
+    
+    <!-- 购结汇查询 -->
+    <bean id="snfncapPositiveBranch0058Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0058}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0058Executor"/>
+    </bean>
+    
+    <!-- 文件处理 -->
+    <bean id="snfncapPositiveBranch0059Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0059}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0059Executor"/>
+    </bean>
+    
+    <!-- 付汇申请 -->
+    <bean id="snfncapPositiveBranch0060Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0060}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0060Executor"/>
+    </bean>
+    
+    <!-- 付汇查询 -->
+    <bean id="snfncapPositiveBranch0061Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0061}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0061Executor"/>
+    </bean>
+    <!-- 异常executor分支返回 -->
+    <bean id="snfncapPositiveBranchDefaultExecutor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0000}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunkDefaultExecutor"/>
+    </bean>
+    
+	<!-- 明细查询 -->
+    <bean id="snfncapPositiveBranch0062Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0062}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0062Executor"/>
+    </bean>
+    
+    <!-- 协议查询 -->
+    <bean id="snfncapPositiveBranch0063Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0063}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0063Executor"/>
+    </bean>
+     <!-- 签约交易-->
+    <bean id="snfncapPositiveBranch0064Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0064}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0064Executor"/>
+    </bean>
+     <!-- 签约查询 -->
+    <bean id="snfncapPositiveBranch0065Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0065}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0065Executor"/>
+    </bean>
+     <!-- 申购 -->
+    <bean id="snfncapPositiveBranch0066Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0066}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0066Executor"/>
+    </bean>
+     <!-- 赎回 -->
+    <bean id="snfncapPositiveBranch0067Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0067}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0067Executor"/>
+    </bean>
+    
+    <!-- 批量退卡申请 -->
+    <bean id="snfncapPositiveBranch0068Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0068}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0068Executor"/>
+    </bean>
+
+    <!-- 批量退卡结果查询 -->
+    <bean id="snfncapPositiveBranch0069Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0069}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0069Executor"/>
+    </bean>   
+    
+    <!-- 支付申请 -->
+    <bean id="snfncapPositiveBranch0073Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0073}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0073Executor"/>
+    </bean>
+    
+    <!-- 支付结果查询 -->
+    <bean id="snfncapPositiveBranch0074Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0074}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0074Executor"/>
+    </bean> 
+    
+    <!-- 直接内转 -->
+    <bean id="snfncapPositiveBranch0075Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0075}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0075Executor"/>
+    </bean>
+    
+    <!-- 直接内转结果查询 -->
+    <bean id="snfncapPositiveBranch0076Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0076}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0076Executor"/>
+    </bean>  
+    
+    <!-- 大额经办 -->
+    <bean id="snfncapPositiveBranch0077Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0077}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0077Executor"/>
+    </bean>
+    
+    <!-- 大额经办结果查询 -->
+    <bean id="snfncapPositiveBranch0078Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0078}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0078Executor"/>
+    </bean>
+              
+    <!-- 招行离岸汇非离岸 -->
+    <bean id="snfncapPositiveBranch0079Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0079}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0079Executor"/>
+    </bean>
+    
+    <!-- 离岸汇他行 -->
+    <bean id="snfncapPositiveBranch0080Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0080}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0080Executor"/>
+    </bean>
+    
+    <!-- 离岸外汇汇款结果查询 -->
+    <bean id="snfncapPositiveBranch0081Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0081}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0081Executor"/>
+    </bean>
+    
+    <!-- 跨境划拨额度查询 -->
+    <bean id="snfncapPositiveBranch0082Executor" class="com.gs.csp.plugins.executor.general.GeneralBranchExecutor"
+          parent="ver1_0BranchExecutor">
+        <property name="code" value="${business.0082}"/>
+        <property name="trunkExecutor" ref="snfncapPositiveTrunk0082Executor"/>
+    </bean>  
+</beans>

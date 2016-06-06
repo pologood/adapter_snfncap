@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+	
+	<!-- 反向分支接收器抽象类 -->
+	<bean id="snfncapNegativeBranchAcceptConnector" class="com.gs.csp.framework.connector.AbstractAcceptConnector" abstract="true">
+		<property name="cryptography" ref="snfncapCryptography" />
+		<property name="inputMessageInterceptorList">
+			<list>
+				<ref bean="snfncapNegativeSupplyMessageInterceptor"/>
+                <ref bean="snfncapNegativeSaveSendInputMessageInterceptor"/>
+            </list>
+		</property>
+	</bean>
+	
+    <!-- 反向分MQ支接收器 -->
+    <bean id="snfncapNegativeBranchMqAcceptConnector"
+          class="com.suning.csp.adapter.snfnc.negative.connector.mq.SnfncNegativeBranchMqAcceptConnector" parent="snfncapNegativeBranchAcceptConnector">
+        <property name="code" value="negativeBranchAccept"/>
+        <property name="listenerContainer" ref="snfncapNegativeBranchListenerContainer"/>
+    </bean>
+    
+</beans>

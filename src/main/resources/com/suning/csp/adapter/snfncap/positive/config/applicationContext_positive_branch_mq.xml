@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+    <bean id="snfncapPositiveBranchAcceptQueue" class="com.ibm.mq.jms.MQQueue" parent="jmsQueue">
+        <property name="baseQueueName" value="${queue.response.distributor.to.snfncap}"/>
+    </bean>
+
+    <bean id="snfncapPositiveBranchListener" class="org.springframework.jms.listener.adapter.MessageListenerAdapter"
+          parent="jmsListener">
+        <property name="delegate" ref="snfncapPositiveBranchMqAcceptConnector"/>
+    </bean>
+
+    <bean id="snfncapPositiveBranchListenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer"
+          parent="jmsContainer">
+        <property name="concurrentConsumers" value="5"/>
+        <property name="destination" ref="snfncapPositiveBranchAcceptQueue"/>
+        <property name="messageListener" ref="snfncapPositiveBranchListener"/>
+    </bean>
+    
+    <!-- 凭证分支接收队列配置 -->
+    <bean id="snfncapTvPositiveBranchAcceptQueue" class="com.ibm.mq.jms.MQQueue" parent="jmsQueue">
+        <property name="baseQueueName" value="${queue.response.distributor.to.snfncap.tv}"/>
+    </bean>
+
+    <bean id="snfncapTvPositiveBranchListener" class="org.springframework.jms.listener.adapter.MessageListenerAdapter"
+          parent="jmsListener">
+        <property name="delegate" ref="snfncapTvPositiveBranchMqAcceptConnector"/>
+    </bean>
+
+    <bean id="snfncapTvPositiveBranchListenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer"
+          parent="jmsContainer">
+        <property name="concurrentConsumers" value="5"/>
+        <property name="destination" ref="snfncapTvPositiveBranchAcceptQueue"/>
+        <property name="messageListener" ref="snfncapTvPositiveBranchListener"/>
+    </bean>
+    
+    <bean id="snfncapPositiveBpsAcceptQueue" class="com.ibm.mq.jms.MQQueue" parent="jmsQueue">
+        <property name="baseQueueName" value="${queue.call.bps.to.snfncap}"/>
+    </bean>
+
+    <bean id="snfncapPositiveBpsListener" class="org.springframework.jms.listener.adapter.MessageListenerAdapter"
+          parent="jmsListener">
+        <property name="delegate" ref="snfncapPositiveBpsMqAcceptConnector"/>
+    </bean>
+
+    <bean id="snfncapPositiveBpsListenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer"
+          parent="jmsContainer">
+        <property name="destination" ref="snfncapPositiveBpsAcceptQueue"/>
+        <property name="messageListener" ref="snfncapPositiveBpsListener"/>
+    </bean>
+
+    <bean id="snfncapPositiveBranchSendQueue" class="com.ibm.mq.jms.MQQueue" parent="jmsQueue">
+        <property name="baseQueueName" value="${positive.queue.response.snfncap.to.client}"/>
+    </bean>
+</beans>

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+	<!-- 初始化内部表 -->
+	<bean id="snfncapPositiveInitializeInterceptor"
+		class="com.gs.csp.plugins.interceptor.save.InitializeInterceptor">
+		<property name="persistence" ref="snfncapPositivePersistence" />
+	</bean>
+
+	<!-- 保存正向表 -->
+	<bean id="snfncapPositiveSaveAcceptInputMessageInterceptor"
+		class="com.gs.csp.plugins.interceptor.save.SaveAcceptInputMessageInterceptor">
+		<property name="persistence" ref="snfncapPositivePersistence" />
+	</bean>
+
+	<!-- 发送请求拦截器 -->
+	<bean id="snfncapPositiveSaveSendOutputMessageInterceptor"
+		class="com.gs.csp.plugins.interceptor.save.SaveSendOutputMessageInterceptor">
+		<property name="persistence" ref="snfncapPositivePersistence" />
+	</bean>
+
+	<!--  接收响应拦截器-->
+	<bean id="snfncapPositiveSaveSendInputMessageInterceptor"
+		class="com.gs.csp.plugins.interceptor.save.SaveSendInputMessageInterceptor">
+		<property name="persistence" ref="snfncapPositivePersistence" />
+	</bean>
+
+	<!-- 发送响应拦截器 -->
+	<bean id="snfncapPositiveSaveAcceptOutputMessageInterceptor"
+		class="com.gs.csp.plugins.interceptor.save.SaveAcceptOutputMessageInterceptor">
+		<property name="persistence" ref="snfncapPositivePersistence" />
+	</bean>
+
+	<!-- 完成指令拦截器 -->
+	<bean id="snfncapPositiveCompleteInterceptor" class="com.gs.csp.plugins.interceptor.save.CompleteInterceptor">
+		<property name="persistence" ref="snfncapPositivePersistence" />
+	</bean>
+
+	<!-- 流水号校验拦截器 -->
+	<bean id="snfncapPositiveTrunkSerialNumberValidateInterceptor"
+		class="com.suning.csp.adapter.snfnc.positive.interceptor.validate.SnfncPositiveSerialNumberValidateInterceptor">
+		<property name="persistence" ref="snfncapPositivePersistence" />
+		<property name="exceptionText"
+			value="${positive.serial.number.validate.exception.text}" />
+	</bean>
+
+	<!--补充消息结果描述 -->
+	<bean id="snfncapPositiveSupplyResultTextInterceptor"
+		class="com.suning.csp.adapter.snfnc.positive.interceptor.supply.SnfncPositiveSupplyResultTextInterceptor">
+		<property name="resultParamMap">
+			<map>
+				<entry key="payment">
+					<map>
+						<entry key="#{snfncPositiveToolkit.POSITIVE_TRANSACT_STATUS_SUCCESS}"
+							value="${positive.payment.default.success.result.text}" />
+						<entry key="#{snfncPositiveToolkit.POSITIVE_TRANSACT_STATUS_FAILURE}"
+							value="${positive.default.failure.result.text}" />
+						<entry key="#{snfncPositiveToolkit.POSITIVE_TRANSACT_STATUS_UNKNOWN}"
+							value="${positive.default.unknown.result.text}" />
+					</map>
+				</entry>
+				<entry key="other">
+					<map>
+						<entry key="#{snfncPositiveToolkit.POSITIVE_TRANSACT_STATUS_SUCCESS}"
+							value="${positive.default.success.result.text}" />
+						<entry key="#{snfncPositiveToolkit.POSITIVE_TRANSACT_STATUS_FAILURE}"
+							value="${positive.default.failure.result.text}" />
+						<entry key="#{snfncPositiveToolkit.POSITIVE_TRANSACT_STATUS_UNKNOWN}"
+							value="${positive.default.unknown.result.text}" />
+					</map>
+				</entry>
+			</map>
+		</property>
+
+
+	</bean>
+
+	<!-- 补全消息 -->
+	<bean id="snfncapPositiveSupplyMessageInterceptor"
+		class="com.suning.csp.adapter.snfnc.positive.interceptor.supply.SnfncPositiveSupplyMessageInterceptor">
+		<property name="interceptor">
+			<bean
+				class="com.gs.csp.plugins.interceptor.supply.SupplyMessageInterceptor">
+				<property name="persistence" ref="snfncapPositivePersistence" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 补充系统标识拦截器  -->
+	<bean id="snfncapPositiveSupplySystemCodeInterceptor"
+		class="com.suning.csp.adapter.snfnc.positive.interceptor.supply.SnfncPositiveSupplySystemCodeInterceptor">
+		<property name="bankCodes" value="${positive.system.banks}" />
+		<property name="systemCodeMap">
+			<map>
+				<entry key="${client.ccb}${business.0001}" value="vip" />
+				<entry key="${client.ccb}${business.0002}" value="vip" />
+				<entry key="${client.ccb}${business.0003}" value="vip" />
+				<entry key="${client.ccb}${business.0004}" value="vip" />
+				<entry key="${client.ccb}${business.0005}" value="vip" />
+				<entry key="${client.ccb}${business.0006}" value="vip" />
+				<entry key="${client.ccb}${business.0007}" value="ebs" />
+				<entry key="${client.ccb}${business.0008}" value="ebs" />
+				<entry key="${client.ccb}${business.0023}" value="vip" />
+				<entry key="${client.ccb}${business.0050}" value="ebs" />
+				<entry key="${client.ccb}${business.0051}" value="vip" />
+				<entry key="${client.ccb}${business.0052}" value="vip" />
+				<entry key="${client.ccb}${business.0056}" value="cbs" />
+				<entry key="${client.ccb}${business.0057}" value="cbs" />
+				<entry key="${client.ccb}${business.0058}" value="cbs" />
+				<entry key="${client.ccb}${business.0059}" value="cbs" />
+				<entry key="${client.ccb}${business.0060}" value="cbs" />
+				<entry key="${client.ccb}${business.0061}" value="cbs" />
+				<entry key="${client.citic}${business.0056}" value="cbs" />
+				<entry key="${client.citic}${business.0057}" value="cbs" />
+				<entry key="${client.citic}${business.0058}" value="cbs" />
+				<entry key="${client.citic}${business.0059}" value="cbs" />
+				<entry key="${client.citic}${business.0060}" value="cbs" />
+				<entry key="${client.citic}${business.0061}" value="cbs" />
+				<entry key="${client.ccb}${business.0068}" value="vip" />
+				<entry key="${client.ccb}${business.0069}" value="vip" />
+				<entry key="${client.citic}${business.0001}" value="" />
+				<entry key="${client.citic}${business.0002}" value="" />
+				<entry key="${client.citic}${business.0003}" value="" />
+				<entry key="${client.citic}${business.0004}" value="" />
+				<entry key="${client.citic}${business.0005}" value="" />
+				<entry key="${client.citic}${business.0006}" value="" />
+				<entry key="${client.citic}${business.0007}" value="" />
+				<entry key="${client.citic}${business.0050}" value="" />
+				<entry key="${client.citic}${business.0051}" value="" />
+				<entry key="${client.citic}${business.0052}" value="" />
+				<entry key="${client.citic}${business.0023}" value="" />
+			</map>
+		</property>
+	</bean>
+
+	<!-- 付款单校验拦截器 -->
+	<bean id="snfncapPositiveTransactNoValidateInterceptor"
+		class="com.suning.csp.adapter.snfnc.positive.interceptor.validate.SnfncPositiveTransactNoValidateInterceptor">
+		<property name="snfncPositivePersistence" ref="positivePersistence" />
+		<property name="validatePIDResultText" value="${positive.pay.id.validate.exception.text}" />
+	</bean>
+
+	<!--  单笔公对私拦截器-->
+	<bean id="snfncapPositiveSupply0050RequestInterceptor"
+		class="com.suning.csp.adapter.snfnc.positive.interceptor.supply.SnfncPositiveSupply0050RequestInterceptor">
+		<property name="transBusinessCode" value="${business.0003}" />
+		<property name="payType" value="1" />
+		<property name="businessCode" value="0050" />
+	</bean>
+
+	<!-- 付款响应拦截器 -->
+	<bean id="snfncapPositiveSupplyPayResponseInterceptor"
+		class="com.suning.csp.adapter.snfnc.positive.interceptor.supply.SnfncPositiveSupplyPayResponseInterceptor">
+		<property name="snfncPositivePersistence" ref="positivePersistence" />
+	</bean>
+
+	<!-- 付款结果请求拦截器 -->
+	<bean id="snfncapPositiveSupplyPayResultRequestInterceptor"
+		class="com.suning.csp.adapter.snfnc.positive.interceptor.supply.SnfncPositiveSupplyPayResultRequestInterceptor">
+		<property name="snfncPositivePersistence" ref="positivePersistence" />
+		<property name="transBusinessCode" value="${business.0004}" />
+		<property name="businessCodeSet"
+			value="${positive.pay.query.interceptor.business.code}" />
+	</bean>
+
+	<!-- 0003付款拦截 -->
+	<bean id="snfncPositiveSupply0003RequestInterceptor"
+		class="com.suning.csp.adapter.snfnc.positive.interceptor.supply.SnfncPositiveSupply0003RequestInterceptor">
+		<property name="payType" value="0" />
+		<property name="businessCode" value="0003" />
+	</bean>
+
+	<!-- 初始化付款单号表拦截器 -->
+	<bean id="snfncapPositiveSavePayMessageInterceptor"
+		class="com.suning.csp.adapter.snfnc.positive.interceptor.save.SnfncPositiveSavePayMessageInterceptor">
+		<property name="payBusinessCodes" value="${positive.pay.business.code}" />
+		<property name="snfncPositivePersistence" ref="positivePersistence" />
+	</bean>
+
+	<!-- 0069响应拦截器 -->
+	<bean id="snfncapPositiveSupply0069ResponseInterceptor"
+		class="com.suning.csp.adapter.snfnc.positive.interceptor.supply.SnfncPositiveSupply0069ResponseInterceptor">
+		<property name="snfncPositivePersistence" ref="positivePersistence" />
+	</bean>
+
+	<bean id="snfncPositiveSupply0051ResponseInterceptor"
+		class="com.suning.csp.adapter.snfnc.positive.interceptor.supply.SnfncPositiveSupply0051ResponseInterceptor">
+		<property name="snfncPositivePersistence" ref="positivePersistence" />
+	</bean>
+
+	<bean id="snfncPositiveSupply0052ResponseInterceptor"
+		class="com.suning.csp.adapter.snfnc.positive.interceptor.supply.SnfncPositiveSupply0052ResponseInterceptor">
+		<property name="snfncPositivePersistence" ref="positivePersistence" />
+	</bean>
+
+	<!-- 0004,0006,0008查询凭证返回-->
+	<bean id="snfncPositiveSuppyQryTransactionInterceptor"
+		class="com.suning.csp.adapter.snfnc.positive.interceptor.supply.SnfncPositiveSuppyQryTransactionInterceptor">
+		<property name="snfncPositivePersistence" ref="positivePersistence" />
+	</bean>
+
+	<!-- 付款响应拦截器 -->
+	<bean id="snfncapPositiveSupplyPayRespVoucherInterceptor"
+		class="com.suning.csp.adapter.snfnc.positive.interceptor.supply.SnfncPositiveSupplyPayRespVoucherInterceptor">
+	</bean>
+	
+	<bean id="snfncPositiveToolkit"
+		class="com.suning.csp.adapter.snfnc.positive.toolkit.SnfncPositiveToolkit">
+	</bean>
+</beans>

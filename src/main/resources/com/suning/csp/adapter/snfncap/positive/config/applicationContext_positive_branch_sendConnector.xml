@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+	
+	<!-- 分支文件发送器 -->
+    <bean id="snfncapPositiveBranchFileSendConnector" class="com.gs.csp.plugins.connector.socket.FileSendConnector">
+        <property name="ip" value="#{configBean.configMap[positive_client_response_file_send_ip]}"/>
+        <property name="port" value="#{configBean.configMap[positive_client_response_file_send_port]}"/>
+        <property name="cryptography" ref="snfncapCryptography"/>
+        <property name="directory" value="#{configBean.configMap[positive_host_response_file_directory]}"/>
+    </bean>
+
+    <!-- 分支Mq发送器 -->
+    <bean id="snfncapPositiveBranchSendConnector" class="com.suning.csp.adapter.snfnc.positive.connector.mq.SnfncPositiveBranchMqSendConnector">
+        <property name="code" value="${client.snfncap}"/>
+        <property name="jmsTemplate" ref="jmsTemplate"/>
+        <property name="snfncPositivePersistence" ref="positivePersistence"/>
+        <property name="queue" ref="snfncapPositiveBranchSendQueue"/>
+        <property name="cryptography" ref="snfncapCryptography"/>
+        <property name="fileSendConnector" ref="snfncapPositiveBranchFileSendConnector" />
+        <property name="outputMessageInterceptorList">
+            <list>
+                <ref bean="snfncapPositiveSaveAcceptOutputMessageInterceptor"/>
+                <ref bean="snfncapPositiveCompleteInterceptor"/>
+                <bean class="com.gs.csp.plugins.interceptor.monitor.MonitorSendOutputMessageInterceptor">
+                    <property name="map" ref="concurrentMap"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+</beans>

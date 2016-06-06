@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+    <bean id="snfncapNegativeBranchAcceptQueue" class="com.ibm.mq.jms.MQQueue" parent="jmsQueue">
+        <property name="baseQueueName" value="${negative.queue.response.snfncapclient.to.snfncap}"/>
+    </bean>
+
+    <bean id="snfncapNegativeBranchListener" class="org.springframework.jms.listener.adapter.MessageListenerAdapter"
+          parent="jmsListener">
+        <property name="delegate" ref="snfncapNegativeBranchMqAcceptConnector"/>
+    </bean>
+
+    <bean id="snfncapNegativeBranchListenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer"
+          parent="jmsContainer">
+        <property name="destination" ref="snfncapNegativeBranchAcceptQueue"/>
+        <property name="messageListener" ref="snfncapNegativeBranchListener"/>
+    </bean>
+
+    <bean id="snfncapNegativeBranchSendQueue" class="com.ibm.mq.jms.MQQueue" parent="jmsQueue">
+        <property name="baseQueueName" value="${queue.response.snfncap.to.distributor}"/>
+    </bean>
+</beans>

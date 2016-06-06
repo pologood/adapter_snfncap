@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+    <bean id="snfncapPositiveBranchAcceptDispatcher"
+          class="com.suning.csp.adapter.snfnc.positive.dispatcher.proxy.SnfncPositiveBranchAcceptDispatcherSpecialExceptionProxy">
+        <property name="target">
+            <bean class="com.gs.csp.plugins.dispatcher.general.GeneralBranchAcceptDispatcher">
+                <property name="code" value="branch accept dispatcher"/>
+                <property name="trunkSendDispatcher" ref="snfncapPositiveTrunkSendDispatcher"/>
+            </bean>
+        </property>
+        <property name="persistence" ref="snfncapPositivePersistence"/>
+    </bean>
+
+    <bean id="snfncapPositiveBranchSendDispatcher"
+          class="com.suning.csp.adapter.snfnc.positive.dispatcher.SnfncPositiveBranchSendDispatcher">
+        <property name="code" value="branch send dispatcher"/>
+        <property name="trunkAcceptDispatcher" ref="snfncapPositiveTrunkAcceptDispatcher"/>
+    </bean>
+
+    <bean id="snfncapPositiveBranchProcessor" class="com.gs.csp.plugins.processor.general.GeneralProcessor">
+        <property name="acceptConnectorList">
+            <list>
+                <ref bean="snfncapPositiveBranchMqAcceptConnector"/>
+                <ref bean="snfncapTvPositiveBranchMqAcceptConnector"/>
+                <ref bean="snfncapPositiveBpsMqAcceptConnector"/>
+            </list>
+        </property>
+        <property name="acceptDispatcher" ref="snfncapPositiveBranchAcceptDispatcher"/>
+        <property name="executorList">
+            <list>
+                <ref bean="snfncapPositiveBranch0001Executor"/>
+                <ref bean="snfncapPositiveBranch0002Executor"/>
+                <ref bean="snfncapPositiveBranch0003Executor"/>
+                <ref bean="snfncapPositiveBranch0004Executor"/>
+                <ref bean="snfncapPositiveBranch0005Executor"/>
+                <ref bean="snfncapPositiveBranch0006Executor"/>
+                <ref bean="snfncapPositiveBranch0007Executor"/>
+                <ref bean="snfncapPositiveBranch0008Executor"/>
+                <ref bean="snfncapPositiveBranch0009Executor"/>
+                <ref bean="snfncapPositiveBranch0010Executor"/>
+                <ref bean="snfncapPositiveBranch0011Executor"/>
+                <ref bean="snfncapPositiveBranch0013Executor"/>
+                <ref bean="snfncapPositiveBranch0014Executor"/>
+                <ref bean="snfncapPositiveBranch0016Executor"/>
+                <ref bean="snfncapPositiveBranch0017Executor"/>
+                <ref bean="snfncapPositiveBranch0018Executor"/>
+                <ref bean="snfncapPositiveBranch0019Executor"/>
+                <ref bean="snfncapPositiveBranch0020Executor"/>
+                <ref bean="snfncapPositiveBranch0021Executor"/>
+                <ref bean="snfncapPositiveBranch0022Executor"/>
+                <ref bean="snfncapPositiveBranch0040Executor"/>
+                <ref bean="snfncapPositiveBranch0041Executor"/>
+                <ref bean="snfncapPositiveBranch0051Executor"/>
+                <ref bean="snfncapPositiveBranch0052Executor"/>
+                <ref bean="snfncapPositiveBranch0053Executor"/>
+                <ref bean="snfncapPositiveBranch0054Executor"/>
+                <ref bean="snfncapPositiveBranch0055Executor"/>
+                <ref bean="snfncapPositiveBranch0056Executor"/>
+                <ref bean="snfncapPositiveBranch0057Executor"/>
+                <ref bean="snfncapPositiveBranch0058Executor"/>
+                <ref bean="snfncapPositiveBranch0059Executor"/>
+                <ref bean="snfncapPositiveBranch0060Executor"/>
+                <ref bean="snfncapPositiveBranch0061Executor"/>
+             	<ref bean="snfncapPositiveBranch0062Executor"/>
+             	<ref bean="snfncapPositiveBranch0063Executor"/>
+             	<ref bean="snfncapPositiveBranch0064Executor"/>
+             	<ref bean="snfncapPositiveBranch0065Executor"/>
+             	<ref bean="snfncapPositiveBranch0066Executor"/>
+             	<ref bean="snfncapPositiveBranch0067Executor"/>
+             	<ref bean="snfncapPositiveBranch0068Executor"/>
+             	<ref bean="snfncapPositiveBranch0069Executor"/>
+             	<ref bean="snfncapPositiveBranch0075Executor"/>
+             	<ref bean="snfncapPositiveBranch0076Executor"/>
+             	<ref bean="snfncapPositiveBranch0077Executor"/>
+             	<ref bean="snfncapPositiveBranch0078Executor"/>
+             	<ref bean="snfncapPositiveBranch0079Executor"/>
+             	<ref bean="snfncapPositiveBranch0080Executor"/>
+             	<ref bean="snfncapPositiveBranch0081Executor"/>
+             	<ref bean="snfncapPositiveBranch0082Executor"/>
+                <ref bean="snfncapPositiveBranchDefaultExecutor"/>
+                <ref bean="snfncapPositiveBranch0073Executor"/>
+                <ref bean="snfncapPositiveBranch0074Executor"/>
+            </list>
+        </property>
+        <property name="sendDispatcher" ref="snfncapPositiveBranchSendDispatcher"/>
+        <property name="sendConnectorList">
+            <list>
+                <ref bean="snfncapPositiveBranchSendConnector"/>
+            </list>
+        </property>
+    </bean>
+</beans>

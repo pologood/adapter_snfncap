@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<!-- 反向向IP校验类 -->
+    <bean id="negativeIpValidator" class="com.gs.utility.validator.IpValidator">
+    	<property name="whiteIps" value="#{configBean.configMap[negative_white_ips]}"/>
+    	<property name="blackIps" value="#{configBean.configMap[negative_black_ips]}"/>
+    </bean>
+    
+<!--	<bean id="negativeRequestClientDirectory" class="java.io.File">
+        <constructor-arg index="0" value="${negative.client.request.file.directory}"/>
+    </bean>-->
+
+    <bean id="negativeRequestHostDirectory" class="java.io.File">
+        <constructor-arg index="0" value="#{configBean.configMap[negative_host_request_file_directory]}"/>
+    </bean>
+
+<!--    <bean id="negativeResponseClientDirectory" class="java.io.File">
+        <constructor-arg index="0" value="${negative.client.response.file.directory}"/>
+    </bean>-->
+
+    <bean id="negativeResponseHostDirectory" class="java.io.File">
+        <constructor-arg index="0" value="#{configBean.configMap[negative_host_response_file_directory]}"/>
+    </bean>
+    
+    <!-- 反向 主干接收调度器异常 代理-->
+    <bean id="snfncapNegativeTrunkAcceptDispatcherExceptionProxy"
+          class="com.suning.csp.adapter.snfnc.negative.dispatcher.proxy.SnfncNegativeTrunkAcceptDispatcherExceptionProxy">
+        <property name="target">
+            <ref bean="snfncapNegativeTrunkAcceptDispatcher"/>
+        </property>
+        <property name="negativePersistence" ref="snfncapNegativePersistence"/>
+        <property name="exceptionResultText" value="${negative.exception.result.text}"/>
+    </bean>
+
+    <!-- 反向 主干接收调度器 -->
+    <bean id="snfncapNegativeTrunkAcceptDispatcher" class="com.gs.csp.plugins.dispatcher.general.GeneralAcceptDispatcher"/>
+
+    <!-- 反向 主干发送调度器 -->
+    <bean id="snfncapNegativeTrunkSendDispatcher"
+          class="com.suning.csp.adapter.snfnc.negative.dispatcher.SnfncNegativeTrunkSendDispatcher"/>
+
+    <!-- 反向 主干processor -->
+    <bean id="snfncapNegativeTrunkProcessor" class="com.gs.csp.plugins.processor.general.GeneralProcessor">
+        <property name="code" value="negativeTrunkProcessor"/>
+        <property name="acceptConnectorList">
+            <list>
+                <ref bean="snfncapNegativeTrunkMQAcceptConnector"/>
+                <ref bean="snfncapNegativeTrunkSocketAcceptConnector"/>
+            </list>
+        </property>
+        <property name="acceptDispatcher" ref="snfncapNegativeTrunkAcceptDispatcherExceptionProxy"/>
+        <property name="executorList">
+            <list>
+                <ref bean="snfncapNegativeTrunk0026Executor"/>
+                <ref bean="snfncapNegativeTrunk0070Executor"/>
+                <ref bean="snfncapNegativeTrunk0071Executor"/>
+                <ref bean="snfncapNegativeTrunk0072Executor"/>
+            </list>
+        </property>
+        <property name="sendDispatcher" ref="snfncapNegativeTrunkSendDispatcher"/>
+        <property name="sendConnectorList">
+            <list>
+                <ref bean="snfncapNegativeTrunkMqSendConnector"/>
+                <!-- <ref bean="snfncapNegativeTrunkHttpSendConnector"/> -->
+            </list>
+        </property>
+    </bean>
+</beans>

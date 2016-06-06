@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+	<!-- 抽象处理类 -->
+	<bean id="ver1_0TrunkExecutor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		abstract="true">
+		<property name="version" value="1.0" />
+		<property name="snfncPositivePersistence" ref="positivePersistence" />
+	</bean>
+
+	<!-- 余额查询 -->
+	<bean id="snfncapPositiveTrunk0001Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0001}" />
+	</bean>
+
+	<!--  明细查询-->
+	<bean id="snfncapPositiveTrunk0002Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0002}" />
+		<!--
+			<property name="clientResponseDirectory"
+			ref="positiveResponseClientDirectory"/>
+		-->
+		<property name="hostResponseDirectory" ref="positiveResponseHostDirectory" />
+	</bean>
+
+	<!-- 单笔对公付款 -->
+	<bean id="snfncapPositiveTrunk0003Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="acceptInputMessageInterceptorList">
+			<list>
+				<ref bean="snfncapPositiveTransactNoValidateInterceptor" />
+				<ref bean="snfncPositiveSupply0003RequestInterceptor" />
+			</list>
+		</property>
+		<property name="acceptOutputMessageInterceptorList">
+			<list>
+				<ref bean="snfncapPositiveSupplyPayResponseInterceptor" />
+			</list>
+		</property>
+		<property name="code" value="${business.0003}" />
+	</bean>
+
+	<!-- 单笔付款结果查询 -->
+	<bean id="snfncapPositiveTrunk0004Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="acceptInputMessageInterceptorList">
+			<list>
+				<ref bean="snfncapPositiveSupplyPayResultRequestInterceptor" />
+			</list>
+		</property>
+		<property name="acceptOutputMessageInterceptorList">
+			<list>
+				<ref bean="snfncPositiveSuppyQryTransactionInterceptor" />
+			</list>
+		</property>
+		<property name="code" value="${business.0004}" />
+	</bean>
+
+	<!-- 批量对私付款 -->
+	<bean id="snfncapPositiveTrunk0005Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0005}" />
+		<!--
+			<property name="clientRequestDirectory"
+			ref="positiveRequestClientDirectory"/>
+		-->
+		<property name="hostRequestDirectory" ref="positiveRequestHostDirectory" />
+		<property name="acceptOutputMessageInterceptorList">
+			<list>
+				<ref bean="snfncapPositiveSupplyPayResponseInterceptor" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- 批量付款结果查询 -->
+	<bean id="snfncapPositiveTrunk0006Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0006}" />
+		<!--
+			<property name="clientResponseDirectory"
+			ref="positiveResponseClientDirectory"/>
+		-->
+		<property name="hostResponseDirectory" ref="positiveResponseHostDirectory" />
+		<property name="acceptInputMessageInterceptorList">
+			<list>
+				<ref bean="snfncapPositiveSupplyPayResultRequestInterceptor" />
+			</list>
+		</property>
+		<property name="acceptOutputMessageInterceptorList">
+			<list>
+				<ref bean="snfncPositiveSuppyQryTransactionInterceptor" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- 超级网银付款 -->
+	<bean id="snfncapPositiveTrunk0007Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="acceptInputMessageInterceptorList">
+			<list>
+				<ref bean="snfncapPositiveTransactNoValidateInterceptor" />
+			</list>
+		</property>
+		<property name="acceptOutputMessageInterceptorList">
+			<list>
+				<ref bean="snfncapPositiveSupplyPayResponseInterceptor" />
+			</list>
+		</property>
+		<property name="code" value="${business.0007}" />
+	</bean>
+
+	<!-- 0008 -->
+	<bean id="snfncapPositiveTrunk0008Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0008}" />
+		<property name="acceptInputMessageInterceptorList">
+			<list>
+				<ref bean="snfncapPositiveSupplyPayResultRequestInterceptor" />
+			</list>
+		</property>
+		<property name="acceptOutputMessageInterceptorList">
+			<list>
+				<ref bean="snfncPositiveSuppyQryTransactionInterceptor" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- 联行号查询 -->
+	<bean id="snfncapPositiveTrunk0009Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0009}" />
+		<!--
+			<property name="clientResponseDirectory"
+			ref="positiveResponseClientDirectory"/>
+		-->
+		<property name="hostResponseDirectory" ref="positiveResponseHostDirectory" />
+	</bean>
+
+	<!-- 清算行号查询 -->
+	<bean id="snfncapPositiveTrunk0010Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0010}" />
+		<!--
+			<property name="clientResponseDirectory"
+			ref="positiveResponseClientDirectory"/>
+		-->
+		<property name="hostResponseDirectory" ref="positiveResponseHostDirectory" />
+	</bean>
+
+	<!-- 周期额度维护 -->
+	<bean id="snfncapPositiveTrunk0011Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0011}" />
+	</bean>
+
+	<!-- 请款限额查询 -->
+	<bean id="snfncapPositiveTrunk0013Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0013}" />
+	</bean>
+
+	<!-- 日间透支填平查询-->
+	<bean id="snfncapPositiveTrunk0014Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0014}" />
+	</bean>
+
+	<!-- 定期开立 -->
+	<bean id="snfncapPositiveTrunk0016Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0016}" />
+	</bean>
+
+	<!-- 定期支取-->
+	<bean id="snfncapPositiveTrunk0017Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0017}" />
+	</bean>
+
+	<!-- 通知开立 -->
+	<bean id="snfncapPositiveTrunk0018Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0018}" />
+	</bean>
+
+	<!-- 通知设定 -->
+	<bean id="snfncapPositiveTrunk0019Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0019}" />
+	</bean>
+
+	<!-- 通知取消 -->
+	<bean id="snfncapPositiveTrunk0020Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0020}" />
+	</bean>
+
+	<!-- 通知支取 -->
+	<bean id="snfncapPositiveTrunk0021Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0021}" />
+	</bean>
+
+	<!-- 定期账户查询 -->
+	<bean id="snfncapPositiveTrunk0022Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0022}" />
+	</bean>
+
+	<!-- 指令状态修改 -->
+	<bean id="snfncapPositiveTrunk0023Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0023}" />
+	</bean>
+
+	<!-- 代付 -->
+	<bean id="snfncapPositiveTrunk0040Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="0040" />
+		<!--
+			<property name="clientRequestDirectory"
+			ref="positiveRequestClientDirectory"/>
+		-->
+		<property name="hostRequestDirectory" ref="positiveRequestHostDirectory" />
+		<property name="acceptOutputMessageInterceptorList">
+			<list>
+				<ref bean="snfncapPositiveSupplyPayResponseInterceptor" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- 代付查询 -->
+	<bean id="snfncapPositiveTrunk0041Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="0041" />
+		<!--
+			<property name="clientResponseDirectory"
+			ref="positiveResponseClientDirectory"/>
+		-->
+		<property name="hostResponseDirectory" ref="positiveResponseHostDirectory" />
+		<property name="acceptInputMessageInterceptorList">
+			<list>
+				<ref bean="snfncapPositiveSupplyPayResultRequestInterceptor" />
+			</list>
+		</property>
+		<property name="acceptOutputMessageInterceptorList">
+			<list>
+				<ref bean="snfncPositiveSuppyQryTransactionInterceptor" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- 单笔公对私-->
+	<bean id="snfncapPositiveTrunk0050Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="acceptInputMessageInterceptorList">
+			<list>
+				<ref bean="snfncapPositiveTransactNoValidateInterceptor" />
+				<ref bean="snfncapPositiveSupply0050RequestInterceptor" />
+			</list>
+		</property>
+		<property name="acceptOutputMessageInterceptorList">
+			<list>
+				<ref bean="snfncapPositiveSupplyPayResponseInterceptor" />
+			</list>
+		</property>
+		<property name="code" value="${business.0050}" />
+	</bean>
+
+	<!-- 多币种余额查询0051 -->
+	<bean id="snfncapPositiveTrunk0051Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0051}" />
+		<property name="acceptOutputMessageInterceptorList">
+			<list>
+				<ref bean="snfncPositiveSupply0051ResponseInterceptor" />
+			</list>
+		</property>
+	</bean>
+
+	<!--  多币种明细查询0052-->
+	<bean id="snfncapPositiveTrunk0052Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0052}" />
+		<!--
+			<property name="clientResponseDirectory"
+			ref="positiveResponseClientDirectory"/>
+		-->
+		<property name="hostResponseDirectory" ref="positiveResponseHostDirectory" />
+		<property name="acceptOutputMessageInterceptorList">
+			<list>
+				<ref bean="snfncPositiveSupply0052ResponseInterceptor" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- 虚账户开立 -->
+	<bean id="snfncapPositiveTrunk0053Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0053}" />
+	</bean>
+
+	<!-- 虚账户开立结果查询 -->
+	<bean id="snfncapPositiveTrunk0054Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0054}" />
+	</bean>
+
+	<!--  明细查询-->
+	<bean id="snfncapPositiveTrunk0055Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0055}" />
+		<!--
+			<property name="clientResponseDirectory"
+			ref="positiveResponseClientDirectory"/>
+		-->
+		<property name="hostResponseDirectory" ref="positiveResponseHostDirectory" />
+	</bean>
+
+	<!-- 异常处理executor -->
+	<bean id="snfncapPositiveTrunkDefaultExecutor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkDefaultExecutor">
+		<property name="version" value="1.0" />
+		<property name="code" value="${business.0000}" />
+		<property name="acceptInputMessageInterceptorList">
+			<list>
+				<ref bean="snfncapPositiveSupplySystemCodeInterceptor" />
+				<ref bean="snfncPositiveSupply0003RequestInterceptor" />
+				<ref bean="snfncapPositiveSupplyPayResultRequestInterceptor" />
+				<ref bean="snfncapPositiveSupply0050RequestInterceptor" />
+			</list>
+		</property>
+		<property name="defaultExceptionResultText" value="${positive.default.executor.exception.text}" />
+	</bean>
+
+
+	<!-- 0056到0061跨境部分 -->
+	<!-- 0056汇率查询 -->
+	<bean id="snfncapPositiveTrunk0056Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0056}" />
+	</bean>
+
+	<!-- 购结汇申请 -->
+	<bean id="snfncapPositiveTrunk0057Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="acceptOutputMessageInterceptorList">
+			<list>
+				<ref bean="snfncapPositiveSupplyPayRespVoucherInterceptor" />
+			</list>
+		</property>
+		<property name="code" value="${business.0057}" />
+	</bean>
+
+	<!--购结汇查询 -->
+	<bean id="snfncapPositiveTrunk0058Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0058}" />
+	</bean>
+
+	<!-- 付汇申请 -->
+	<bean id="snfncapPositiveTrunk0060Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="acceptOutputMessageInterceptorList">
+			<list>
+				<ref bean="snfncapPositiveSupplyPayRespVoucherInterceptor" />
+			</list>
+		</property>
+		<property name="code" value="${business.0060}" />
+	</bean>
+
+	<!--付汇查询 -->
+	<bean id="snfncapPositiveTrunk0061Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0061}" />
+	</bean>
+
+	<!-- 3种文件上传 -->
+	<bean id="snfncapPositiveTrunk0059Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0059}" />
+		<property name="hostRequestDirectory" ref="positiveRequestHostDirectory" />
+	</bean>
+	<!-- 跨境模块结束 -->
+
+	<!-- 0062到0062第三方支付部分 -->
+	<!--明细查询 -->
+	<bean id="snfncapPositiveTrunk0062Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0062}" />
+		<property name="hostResponseDirectory" ref="positiveResponseHostDirectory" />
+	</bean>
+	<!-- 第三方支付模块结束 -->
+
+
+	<!-- 集团理财模块开始 -->
+	<!--协议查询 -->
+	<bean id="snfncapPositiveTrunk0063Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0063}" />
+	</bean>
+
+	<bean id="snfncapPositiveTrunk0064Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0064}" />
+	</bean>
+
+	<bean id="snfncapPositiveTrunk0065Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0065}" />
+	</bean>
+
+	<bean id="snfncapPositiveTrunk0066Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0066}" />
+	</bean>
+
+	<bean id="snfncapPositiveTrunk0067Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0067}" />
+	</bean>
+	<!-- 集团理财模块结束 -->
+
+	<!-- 批量退卡模块部分开始 -->
+	<!-- 批量退款申请 -->
+	<bean id="snfncapPositiveTrunk0068Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0068}" />
+		<property name="hostRequestDirectory" ref="positiveRequestHostDirectory" />
+		<property name="acceptOutputMessageInterceptorList">
+			<list>
+				<ref bean="snfncapPositiveSupplyPayResponseInterceptor" />
+			</list>
+		</property>
+	</bean>
+	<!-- 批量退款结果查询 -->
+	<bean id="snfncapPositiveTrunk0069Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0069}" />
+		<property name="hostResponseDirectory" ref="positiveResponseHostDirectory" />
+		<property name="acceptInputMessageInterceptorList">
+			<list>
+				<ref bean="snfncapPositiveSupplyPayResultRequestInterceptor" />
+			</list>
+		</property>
+		<property name="acceptOutputMessageInterceptorList">
+			<list>
+				<ref bean="snfncapPositiveSupply0069ResponseInterceptor" />
+			</list>
+		</property>
+	</bean>
+	<!-- 批量退卡模块部分结束 -->
+
+	<!--外币资金池部分开始-->
+	<!-- 直接内转 -->
+	<bean id="snfncapPositiveTrunk0075Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="acceptOutputMessageInterceptorList">
+			<list>
+				<ref bean="snfncapPositiveSupplyPayRespVoucherInterceptor" />
+			</list>
+		</property>
+		<property name="code" value="${business.0075}" />
+	</bean>
+	<!-- 直接内转结果查询 -->
+	<bean id="snfncapPositiveTrunk0076Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0076}" />
+	</bean>
+	
+	<!-- 大额经办 -->
+	<bean id="snfncapPositiveTrunk0077Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="acceptOutputMessageInterceptorList">
+			<list>
+				<ref bean="snfncapPositiveSupplyPayRespVoucherInterceptor" />
+			</list>
+		</property>
+		<property name="code" value="${business.0077}" />
+	</bean>
+	<!-- 大额经办结果查询 -->
+	<bean id="snfncapPositiveTrunk0078Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0078}" />
+	</bean>	
+	
+	<!-- 招行离岸汇非离岸 -->
+	<bean id="snfncapPositiveTrunk0079Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="acceptOutputMessageInterceptorList">
+			<list>
+				<ref bean="snfncapPositiveSupplyPayRespVoucherInterceptor" />
+			</list>
+		</property>
+		<property name="code" value="${business.0079}" />
+	</bean>
+	<!-- 离岸汇他行 -->
+	<bean id="snfncapPositiveTrunk0080Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="acceptOutputMessageInterceptorList">
+			<list>
+				<ref bean="snfncapPositiveSupplyPayRespVoucherInterceptor" />
+			</list>
+		</property>
+		<property name="code" value="${business.0080}" />
+	</bean>
+	<!-- 离岸外汇汇款查询 -->
+	<bean id="snfncapPositiveTrunk0081Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0081}" />
+	</bean>		
+	
+	<!-- 跨境划拨额度查询 -->
+	<bean id="snfncapPositiveTrunk0082Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0082}" />
+	</bean>	
+	<!--外币资金池部分结束-->
+
+	<bean id="snfncapPositiveTrunk0073Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0073}" />
+	</bean>
+	<bean id="snfncapPositiveTrunk0074Executor"
+		class="com.suning.csp.adapter.snfnc.positive.executor.SnfncPositiveTrunkExecutor"
+		parent="ver1_0TrunkExecutor">
+		<property name="code" value="${business.0074}" />
+	</bean>
+</beans>

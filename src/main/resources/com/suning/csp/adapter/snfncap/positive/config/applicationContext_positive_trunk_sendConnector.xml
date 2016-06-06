@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+    <!-- 抽象发送类 -->
+    <bean id="snfncapPositiveTrunkSendConnector" class="com.gs.csp.framework.connector.AbstractSendConnector" abstract="true">
+        <property name="cryptography" ref="cryptography"/>
+        <property name="outputMessageInterceptorList">
+            <list>
+                <ref bean="snfncapPositiveSaveSendOutputMessageInterceptor"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 前端->路由MQ发送器 -->
+    <bean id="snfncapPositiveTrunkMqSendConnector" class="com.gs.csp.plugins.connector.mq.MqIBMSendConnector" parent="snfncapPositiveTrunkSendConnector">
+        <property name="code" value="${client.snfncap}"/>
+        <property name="jmsTemplate" ref="jmsTemplate"/>
+        <property name="queue" ref="snfncapPositiveTrunkSendQueue"/>
+    </bean>
+
+    <!-- 前端->路由socket发送器 -->
+    <bean id="snfncapPositiveTrunkSocketSendConnector" class="com.gs.csp.plugins.connector.socket.MessageSendConnector"
+          parent="snfncapPositiveTrunkSendConnector">
+        <property name="code" value="${client.snfncap}"/>
+        <property name="ip" value="#{configBean.configMap[positive_host_request_socket_send_ip]}"/>
+        <property name="port" value="#{configBean.configMap[positive_host_request_socket_send_port]}"/>
+        <property name="inputMessageInterceptorList">
+            <list>
+                <ref bean="snfncapPositiveSaveSendInputMessageInterceptor"/>
+            </list>
+        </property>
+    </bean>
+
+</beans>
